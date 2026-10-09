@@ -1,0 +1,7 @@
+# Generated simulation files
+*.vcd
+test_sim
+*.out
+
+# Build artifacts
+*.o
