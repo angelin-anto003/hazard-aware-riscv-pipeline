@@ -5,3 +5,8 @@ test_sim
 
 # Build artifacts
 *.o
+*.vvp
+*_sim
+*.vcd
+*.out
+*.log
