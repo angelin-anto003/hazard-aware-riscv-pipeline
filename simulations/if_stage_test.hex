@@ -1,0 +1,11 @@
+// IF-stage test program. Word index in comments; other words are zero.
+00100093  // idx 0 (0x00): addi x1,x0,1
+00200113  // idx 1 (0x04): addi x2,x0,2
+00300193  // idx 2 (0x08): addi x3,x0,3
+00400213  // idx 3 (0x0C): addi x4,x0,4
+00500293  // idx 4 (0x10): addi x5,x0,5
+00600313  // idx 5 (0x14): addi x6,x0,6
+00700393  // idx 6 (0x18): addi x7,x0,7
+00800413  // idx 7 (0x1C): addi x8,x0,8
+00900493  // idx 8 (0x20): addi x9,x0,9   (redirect target)
+00A00513  // idx 9 (0x24): addi x10,x0,10
