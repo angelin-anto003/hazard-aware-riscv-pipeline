@@ -1,0 +1,10 @@
+// ADD/ADDI test program for riscv_cpu ($readmemh format). Words not listed are 0.
+00A00093  // 0x00: addi x1, x0, 10
+01400113  // 0x04: addi x2, x0, 20
+002081B3  // 0x08: add  x3, x1, x2
+00518213  // 0x0C: addi x4, x3, 5
+004182B3  // 0x10: add  x5, x3, x4
+FFF00313  // 0x14: addi x6, x0, -1
+001303B3  // 0x18: add  x7, x6, x1
+07B00013  // 0x1C: addi x0, x0, 123
+00208433  // 0x20: add  x8, x1, x2
