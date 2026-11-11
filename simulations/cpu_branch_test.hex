@@ -1,0 +1,33 @@
+// Branch test for riscv_cpu ($readmemh format). Words not listed are 0.
+00500093  // 0x00: addi x1, x0, 5
+00500113  // 0x04: addi x2, x0, 5
+00700193  // 0x08: addi x3, x0, 7
+FFD00213  // 0x0C: addi x4, x0, -3
+00208663  // 0x10: beq  x1, x2, +12  (taken -> 0x1C)
+00100513  // 0x14: addi x10, x0, 1   (wrong path)
+00200593  // 0x18: addi x11, x0, 2   (wrong path)
+00100613  // 0x1C: addi x12, x0, 1   (target)
+00308663  // 0x20: beq  x1, x3, +12  (not taken)
+00100693  // 0x24: addi x13, x0, 1
+00069663  // 0x28: bne  x13, x0, +12 (taken -> 0x34, x13 forwarded)
+00100713  // 0x2C: addi x14, x0, 1   (wrong path)
+00200793  // 0x30: addi x15, x0, 2   (wrong path)
+00100813  // 0x34: addi x16, x0, 1   (target)
+00209663  // 0x38: bne  x1, x2, +12  (not taken)
+00100893  // 0x3C: addi x17, x0, 1
+00124663  // 0x40: blt  x4, x1, +12  (taken, signed -> 0x4C)
+00100913  // 0x44: addi x18, x0, 1   (wrong path)
+00200993  // 0x48: addi x19, x0, 2   (wrong path)
+00100A13  // 0x4C: addi x20, x0, 1   (target)
+0040D663  // 0x50: bge  x1, x4, +12  (taken, signed -> 0x5C)
+00100A93  // 0x54: addi x21, x0, 1   (wrong path)
+00200B13  // 0x58: addi x22, x0, 2   (wrong path)
+00100B93  // 0x5C: addi x23, x0, 1   (target)
+0040C463  // 0x60: blt  x1, x4, +8   (not taken, signed)
+00100C13  // 0x64: addi x24, x0, 1
+00D60D33  // 0x68: add  x26, x12, x13
+010D0DB3  // 0x6C: add  x27, x26, x16
+011D8E33  // 0x70: add  x28, x27, x17
+014E0EB3  // 0x74: add  x29, x28, x20
+017E8F33  // 0x78: add  x30, x29, x23
+018F0FB3  // 0x7C: add  x31, x30, x24
