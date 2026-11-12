@@ -1,0 +1,38 @@
+// Remaining-instruction test for riscv_cpu ($readmemh format). Words not listed are 0.
+123450B7  // 0x00: lui   x1, 0x12345          x1 = 0x12345000
+FFFFF137  // 0x04: lui   x2, 0xFFFFF          x2 = 0xFFFFF000
+00000197  // 0x08: auipc x3, 0                 x3 = 0x00000008
+00001217  // 0x0C: auipc x4, 1                 x4 = 0x0000100C
+FFF0F293  // 0x10: andi  x5, x1, -1           x5 = 0x12345000 (sign-extended imm)
+0FF27313  // 0x14: andi  x6, x4, 0xFF         x6 = 0x0000000C (x4 forwarded from MEM/WB)
+F0006393  // 0x18: ori   x7, x0, -256         x7 = 0xFFFFFF00
+0F036413  // 0x1C: ori   x8, x6, 0xF0         x8 = 0x000000FC
+FFF44493  // 0x20: xori  x9, x8, -1           x9 = 0xFFFFFF03 (x8 forwarded from EX/MEM)
+0FF4C513  // 0x24: xori  x10, x9, 0xFF        x10 = 0xFFFFFFFC
+0020B5B3  // 0x28: sltu  x11, x1, x2          x11 = 1 (0x12345000 < 0xFFFFF000)
+00113633  // 0x2C: sltu  x12, x2, x1          x12 = 0 (0xFFFFF000 < 0x12345000 is false)
+0093B6B3  // 0x30: sltu  x13, x7, x9          x13 = 1 (0xFFFFFF00 < 0xFFFFFF03)
+0020E663  // 0x34: bltu  x1, x2, +12          TAKEN  -> 0x40 (unsigned: true)
+00100713  // 0x38: addi  x14, x0, 1           wrong path
+00200793  // 0x3C: addi  x15, x0, 2           wrong path
+00100813  // 0x40: addi  x16, x0, 1           target, x16 = 1
+00117663  // 0x44: bgeu  x2, x1, +12          TAKEN  -> 0x50 (unsigned: true)
+00100893  // 0x48: addi  x17, x0, 1           wrong path
+00200913  // 0x4C: addi  x18, x0, 2           wrong path
+00100993  // 0x50: addi  x19, x0, 1           target, x19 = 1
+00116463  // 0x54: bltu  x2, x1, +8           NOT TAKEN (unsigned: false)
+00100A13  // 0x58: addi  x20, x0, 1           fall-through, x20 = 1
+0020F463  // 0x5C: bgeu  x1, x2, +8           NOT TAKEN (unsigned: false)
+00100A93  // 0x60: addi  x21, x0, 1           fall-through, x21 = 1
+0003F663  // 0x64: bgeu  x7, x0, +12          TAKEN  -> 0x70 (0xFFFFFF00 >= 0 unsigned)
+00100B13  // 0x68: addi  x22, x0, 1           wrong path
+00200B93  // 0x6C: addi  x23, x0, 2           wrong path
+00100C13  // 0x70: addi  x24, x0, 1           target, x24 = 1
+00706463  // 0x74: bltu  x0, x7, +8           TAKEN  -> 0x7C (0 < 0xFFFFFF00)
+00200C93  // 0x78: addi  x25, x0, 2           wrong path (skipped)
+00100D13  // 0x7C: addi  x26, x0, 1           target, x26 = 1
+01380DB3  // 0x80: add   x27, x16, x19        x27 = 2
+014D8E33  // 0x84: add   x28, x27, x20        x28 = 3
+015E0EB3  // 0x88: add   x29, x28, x21        x29 = 4
+018E8F33  // 0x8C: add   x30, x29, x24        x30 = 5
+01AF0FB3  // 0x90: add   x31, x30, x26        x31 = 6
