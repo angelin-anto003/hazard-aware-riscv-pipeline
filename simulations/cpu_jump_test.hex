@@ -1,0 +1,19 @@
+// JAL / JALR test for riscv_cpu ($readmemh format). Words not listed are 0.
+02400093  // 0x00: addi x1, x0, 36
+00C0016F  // 0x04: jal  x2, +12     (taken -> 0x10)
+00100513  // 0x08: addi x10, x0, 1  (wrong path)
+00200593  // 0x0C: addi x11, x0, 2  (wrong path)
+00300193  // 0x10: addi x3, x0, 3   (JAL target)
+00508267  // 0x14: jalr x4, 5(x1)   (taken -> 0x28, bit 0 cleared)
+00100613  // 0x18: addi x12, x0, 1  (wrong path)
+00200693  // 0x1C: addi x13, x0, 2  (wrong path)
+00100713  // 0x20: addi x14, x0, 1  (wrong path)
+00200793  // 0x24: addi x15, x0, 2  (wrong path)
+00500293  // 0x28: addi x5, x0, 5   (JALR target)
+0080036F  // 0x2C: jal  x6, +8      (taken -> 0x34)
+00100813  // 0x30: addi x16, x0, 1  (wrong path)
+00700393  // 0x34: addi x7, x0, 7   (JAL target)
+00410433  // 0x38: add  x8, x2, x4
+007404B3  // 0x3C: add  x9, x8, x7
+00530F33  // 0x40: add  x30, x6, x5
+00348FB3  // 0x44: add  x31, x9, x3
