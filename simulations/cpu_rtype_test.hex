@@ -1,0 +1,22 @@
+// R-type ALU test for riscv_cpu ($readmemh format). Words not listed are 0.
+00A00093  // 0x00: addi x1, x0, 10
+FFD00113  // 0x04: addi x2, x0, -3
+402081B3  // 0x08: sub  x3, x1, x2      x3 = 10 - (-3) = 13
+40110233  // 0x0C: sub  x4, x2, x1      x4 = -3 - 10 = -13
+404182B3  // 0x10: sub  x5, x3, x4      x5 = 13 - (-13) = 26  (x3 from MEM/WB, x4 from EX/MEM)
+0020F333  // 0x14: and  x6, x1, x2      x6 = 0x0A & 0xFFFFFFFD = 8
+0020E3B3  // 0x18: or   x7, x1, x2      x7 = 0x0A | 0xFFFFFFFD = 0xFFFFFFFF
+00734433  // 0x1C: xor  x8, x6, x7      x8 = 8 ^ 0xFFFFFFFF = 0xFFFFFFF7  (x6 MEM/WB, x7 EX/MEM)
+0010C4B3  // 0x20: xor  x9, x1, x1      x9 = 0
+00112533  // 0x24: slt  x10, x2, x1     x10 = (-3 < 10) signed = 1
+0020A5B3  // 0x28: slt  x11, x1, x2     x11 = (10 < -3) signed = 0
+0021A633  // 0x2C: slt  x12, x3, x2     x12 = (13 < -3) signed = 0  (unsigned would be 1)
+40A60733  // 0x30: sub  x14, x12, x10   x14 = 0 - 1 = 0xFFFFFFFF  (x12 EX/MEM)
+000727B3  // 0x34: slt  x15, x14, x0    x15 = (-1 < 0) signed = 1  (x14 EX/MEM)
+00E7C833  // 0x38: xor  x16, x15, x14   x16 = 1 ^ 0xFFFFFFFF = 0xFFFFFFFE  (x15 EX/MEM, x14 MEM/WB)
+00F868B3  // 0x3C: or   x17, x16, x15   x17 = 0xFFFFFFFE | 1 = 0xFFFFFFFF  (x16 EX/MEM, x15 MEM/WB)
+0018F933  // 0x40: and  x18, x17, x1    x18 = 0xFFFFFFFF & 10 = 0x0A
+401909B3  // 0x44: sub  x19, x18, x1    x19 = 10 - 10 = 0
+40208033  // 0x48: sub  x0, x1, x2      write to x0, must be discarded
+0042EA33  // 0x4C: or   x20, x5, x4     x20 = 26 | 0xFFFFFFF3 = 0xFFFFFFFB
+401A0FB3  // 0x50: sub  x31, x20, x1    x31 = 0xFFFFFFFB - 10 = 0xFFFFFFF1 (x20 EX/MEM)
